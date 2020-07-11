@@ -1,7 +1,7 @@
 <?php 
     require_once "Conexion/conexion.php";
-    require_once "Controller/Insumos/InsumosABM.php";
-    $IDEdit; 
+    require_once "Controller/General/ABM.php";
+   
  ?>
 
 <!DOCTYPE html>
@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tejidos Paupi /Unidades de Medida</title>
 
 
     <link rel="stylesheet" href="assets/estilos.css">
@@ -21,10 +21,13 @@
     <link rel="stylesheet" type="text/css" href="assets/vendor/datatables/css/buttons.bootstrap4.css">
     <link rel="stylesheet" type="text/css" href="assets/vendor/datatables/css/select.bootstrap4.css">
     <link rel="stylesheet" type="text/css" href="assets/vendor/datatables/css/fixedHeader.bootstrap4.css">
+    
+    
+	
 </head>
 <body>
   
-     <?php include "./index.html" ?>
+     <?php include "index.html" ?>
      <!-- wrapper  -->
         <!-- ============================================================== -->
         <div class="dashboard-wrapper">
@@ -39,7 +42,7 @@
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                             <div class="page-header">
-                                <h2 class="pageheader-title">Insumos</h2>
+                                <h2 class="pageheader-title">Unidades de Medida</h2>
                                 <!--<p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>-->
                                 <div class="page-breadcrumb">
                                     <nav aria-label="breadcrumb">
@@ -84,22 +87,27 @@
                             <div class="card">
                                 <h5 class="card-header">Nuevo Insumo</h5>
                                 <div class="card-body">
-                                    <form class="needs-validation" novalidate action="Controller/Insumos/insertar.php" method="post" id="Form_Create_Insumo">
+                                    <form class="needs-validation" novalidate action="Controller/UnidadMedida/insertar.php" method="post" id="Form_Create_UnidMedida">
                                         <div class="row">
-                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                        <div class="EspacioSup col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
                                                 <label for="validationCustom01">Descripcion</label>
                                                 <input type="text" class="form-control" id="validationCustom01" placeholder="" value="" name="Descripcion" required minlength="4">
                                                
                                             </div>
                                             <div class="EspacioSup col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
                                                 <label for="validationCustom01">Descripcion Abreviada</label>
-                                                <input type="text" class="form-control" id="validationCustom01" placeholder="" value="" name="DescripcionAbre" required>
+                                                <input type="text" maxlength="10" class="form-control" id="validationCustom01" placeholder="" value="" name="DescripcionAbre" requireddata-toggle="tooltip" data-placement="top" title="Maximo 10 Caracteres">
                                                 
                                             </div>
                                             <div class="EspacioSup col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
-                                                <label for="validationCustom02">Color</label>
-                                                <input type="text" class="form-control" id="validationCustom02" placeholder="" value="" name="Color" required>
-                                              
+                                                <label for="validationCustom01">Unidad de Medida</label>
+                                                <input type="text" class="form-control" id="validationCustom01" placeholder="" value="" name="Descripcion" required minlength="4">
+                                               
+                                            </div>
+                                            <div class="EspacioSup col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
+                                                <label for="validationCustom01">Color</label>
+                                                <input type="text" maxlength="10" class="form-control" id="validationCustom01" placeholder="" value="" name="DescripcionAbre" requireddata-toggle="tooltip" data-placement="top" title="Maximo 10 Caracteres">
+                                                
                                             </div>
                                             
                                             <h1> </h1>
@@ -143,6 +151,7 @@
                                                 <th>DescripcionAbre</th>
                                                 <th>Color</th>
                                                 <th>Cantidad</th>
+                                                <th>Unidad Medida</th>
                                                 <th>Acciones</th>
                                                 
                                             </tr>
@@ -150,7 +159,10 @@
 
                             <?php
                                     $obj= new metodos();
-                                    $sql="SELECT id,Descripcion,DescripcionAbre,Color,Cantidad from  insumos" ;
+                                    $sql="SELECT i.id, i.Descripcion,i.DescripcionAbre,i.Color,i.Cantidad,u.DescripcionAbre as Uni
+                                    FROM insumos as i inner join unidadmedida AS u on 
+                                    (i.IdUnidadMedida=u.Id)
+                                    WHERE i.Estado=1" ;
                                     $datos=$obj->mostrarDatos($sql);
                                   
                                     foreach ($datos as $key ) {
@@ -161,17 +173,23 @@
                                                 <td><?php echo $key['Descripcion'] ?></td>
                                                 <td><?php echo $key['DescripcionAbre'] ?></td>
                                                 <td><?php echo $key['Color'] ?></td>
-                                                <td><?php echo $key['Cantidad']. " grs"?></td>
+                                                <td><?php echo $key['Cantidad'] ?></td>
+                                                <td><?php echo $key['Uni'] ?></td>
                                                 <td>
                                             
-                                                <a href="InsumosEdit.php?id=<?php echo $key['id'] ?>">
+                                                <a href="UnidadMedidaEdit.php?id=<?php echo $key['id'] ?>" data-toggle="tooltip" data-placement="top" title="Editar">
                                                     <img src="Imagenes/ABM/Editar.png">
+                                                    
                                                     </a>
-                                                    <a href="" onclick="Eliminar('<?php echo $key['Descripcion'] ?>',<?php echo $key['id'] ?>)" >
-                                                    <img src="Imagenes/ABM/Borrar.png">
-                                                    </a>
-                                               
+                                                    <!--<a href="Controller/UnidadMedida/eliminar.php?id=<?php echo $key['id'] ?>"  -->
                                                    
+
+                                                <a href="#" data-href="Controller/UnidadMedida/eliminar.php?id=<?php echo $key['id'] ?>" data-toggle="modal" data-target="#confirm-delete">
+                                                    <img src="Imagenes/ABM/Borrar.png">
+                                                   <!-- <button type="" class="" onclick="return ConfirmEliminar()"></button>    -->
+                                                </a>
+                                               
+                                                
 
 
                                                     </td>
@@ -181,7 +199,10 @@
                                            
                                      <!--   </tbody>-->
                                         <?php 
-                                            }
+                            
+                                                       
+                                        }
+                                            
                                         ?>
                                     </table>
                                 </div>
@@ -209,7 +230,28 @@
         </div>
         <!-- ============================================================== -->
         <!-- end wrapper  -->
-        <script src="assets/Funciones.js"></script>
+
+
+        <!-- MODAL PARA ELIMINAR  -->
+        <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                        <div class="modal-content">
+                                        <div class="modal-header">
+                                           Eliminacion de Unidad de Medida
+                                        </div>
+                            <div class="modal-body">
+                        ¿Esta seguro que desea eliminar el registro?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <a class="btn btn-danger btn-ok">Eliminar</a>
+                            </div>
+                        </div>
+                </div>
+        </div>
+        
+        <script src="assets/ValidacionesUnidMedida.js"></script>
+        <!--<script src="assets/Funciones.js"></script>-->
         <script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="assets/vendor/slimscroll/jquery.slimscroll.js"></script>

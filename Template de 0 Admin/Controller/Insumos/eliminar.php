@@ -1,13 +1,20 @@
-<?php 
-	$id=$_GET['id'];
 
-    require_once "../../Conexion/conexion.php";
-	require_once "InsumosABM.php";
+<?php 
+	require_once "../../Conexion/conexion.php";
+	
+	require_once "../General/ABM.php";
+
+	$id=$_GET['id'];
+    $tabla="insumos";
 
 	$obj= new metodos();
-	if($obj->eliminarDatosNombre($id)==1){
-        header("location:../../insumos.php");
+	if($obj->Eliminar($tabla,$id)==1){
+		header("location:../../insumos.php?OKEdit");
+		
+		
 	}else{
-		echo "fallo al agregar";
+		header("location:../../404-page.html");
 	}
+
+
  ?>

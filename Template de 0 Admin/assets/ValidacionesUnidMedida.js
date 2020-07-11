@@ -1,6 +1,6 @@
 
 
-//ejecutaAlertaOK();
+ejecutaAlertaOK();
 
  // Tomar el evento
  document.addEventListener("DOMContentLoaded", function(event) { 

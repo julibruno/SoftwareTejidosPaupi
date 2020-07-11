@@ -96,7 +96,7 @@
                                             </div>
                                             <div class="EspacioSup col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
                                                 <label for="validationCustom01">Descripcion Abreviada</label>
-                                                <input type="text" maxlength="10" class="form-control" id="validationCustom01" placeholder="" value="" name="DescripcionAbre" requireddata-toggle="tooltip" data-placement="top" title="Maximo 10 caracteres">
+                                                <input type="text" maxlength="10" class="form-control" id="validationCustom01" placeholder="" value="" name="DescripcionAbre" requireddata-toggle="tooltip" data-placement="top" title="Maximo 10 Caracteres">
                                                 
                                             </div>
                                             

@@ -9,7 +9,7 @@
 
 	$obj= new metodos();
 	if($obj->Eliminar($tabla,$id)==1){
-		header("location:../../UnidadMedida.php?OKEdit");
+		header("location:../../UnidadMedida.php");
 		
 		
 	}else{
