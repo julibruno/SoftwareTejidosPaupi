@@ -40,9 +40,9 @@
                     <!-- pageheader  -->
                     <!-- ============================================================== -->
                     <div class="row">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
                             <div class="page-header">
-                                <h2 class="pageheader-title">Unidades de Medida</h2>
+                                <h2 class="pageheader-title">Insumos</h2>
                                 <!--<p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>-->
                                 <div class="page-breadcrumb">
                                     <nav aria-label="breadcrumb">
@@ -53,6 +53,15 @@
                                     </nav>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 col-2">
+                       
+                            <a href="Insumos.php">
+                                                <button class="btn btn-primary" type="button" >Actualizar
+                                                <img src="Imagenes/ABM/actualizar.png">
+                                                </button>
+                                                </a>
+                                            
                         </div>
                     </div>
                     <!-- ============================================================== -->
@@ -87,7 +96,7 @@
                             <div class="card">
                                 <h5 class="card-header">Nuevo Insumo</h5>
                                 <div class="card-body">
-                                    <form class="needs-validation" novalidate action="Controller/UnidadMedida/insertar.php" method="post" id="Form_Create_UnidMedida">
+                                    <form class="needs-validation" novalidate action="Controller/Insumos/insertar.php" method="post" id="Form_Create_UnidMedida">
                                         <div class="row">
                                         <div class="EspacioSup col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
                                                 <label for="validationCustom01">Descripcion</label>
@@ -99,14 +108,36 @@
                                                 <input type="text" maxlength="10" class="form-control" id="validationCustom01" placeholder="" value="" name="DescripcionAbre" requireddata-toggle="tooltip" data-placement="top" title="Maximo 10 Caracteres">
                                                 
                                             </div>
+                                            
                                             <div class="EspacioSup col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
+                                            <label for="input-select">Unidad de Medida</label>
+                                                <select class="form-control" name="idunidadmedida">
+                                                <?php
+                                                $obj= new metodos();
+                                                $sql="SELECT id, Descripcion
+                                                FROM  unidadmedida 
+    
+                                                WHERE Estado=1" ;
+                                                $datosUni=$obj->mostrarDatos($sql);
+                                            
+                                                foreach ($datosUni as $key ) {
+                                                ?>
+                                                    <option value="<?php echo $key['id'] ?>"><?php echo $key['Descripcion'] ?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                                </select>
+                                                </div>
+                                            
+                                                
+                                           <!-- <div class="EspacioSup col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
                                                 <label for="validationCustom01">Unidad de Medida</label>
                                                 <input type="text" class="form-control" id="validationCustom01" placeholder="" value="" name="Descripcion" required minlength="4">
                                                
-                                            </div>
+                                            </div>-->
                                             <div class="EspacioSup col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
                                                 <label for="validationCustom01">Color</label>
-                                                <input type="text" maxlength="10" class="form-control" id="validationCustom01" placeholder="" value="" name="DescripcionAbre" requireddata-toggle="tooltip" data-placement="top" title="Maximo 10 Caracteres">
+                                                <input type="text" maxlength="10" class="form-control" id="validationCustom01" placeholder="" value="" name="Color" requireddata-toggle="tooltip" data-placement="top" title="Maximo 10 Caracteres">
                                                 
                                             </div>
                                             
@@ -177,14 +208,14 @@
                                                 <td><?php echo $key['Uni'] ?></td>
                                                 <td>
                                             
-                                                <a href="UnidadMedidaEdit.php?id=<?php echo $key['id'] ?>" data-toggle="tooltip" data-placement="top" title="Editar">
+                                                <a href="InsumosEdit.php?id=<?php echo $key['id'] ?>" data-toggle="tooltip" data-placement="top" title="Editar">
                                                     <img src="Imagenes/ABM/Editar.png">
                                                     
                                                     </a>
                                                     <!--<a href="Controller/UnidadMedida/eliminar.php?id=<?php echo $key['id'] ?>"  -->
                                                    
 
-                                                <a href="#" data-href="Controller/UnidadMedida/eliminar.php?id=<?php echo $key['id'] ?>" data-toggle="modal" data-target="#confirm-delete">
+                                                <a href="#" data-href="Controller/Insumos/eliminar.php?id=<?php echo $key['id'] ?>" data-toggle="modal" data-target="#confirm-delete">
                                                     <img src="Imagenes/ABM/Borrar.png">
                                                    <!-- <button type="" class="" onclick="return ConfirmEliminar()"></button>    -->
                                                 </a>
@@ -250,7 +281,7 @@
                 </div>
         </div>
         
-        <script src="assets/ValidacionesUnidMedida.js"></script>
+        <script src="assets/ValidacionesInsumos.js"></script>
         <!--<script src="assets/Funciones.js"></script>-->
         <script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>

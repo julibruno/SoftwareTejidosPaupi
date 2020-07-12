@@ -94,6 +94,13 @@
                                     <form class="needs-validation" novalidate action="Controller/UnidadMedida/editar.php" method="post" id="Form_Create_UnidMedida">
                                         <div class="row">
                                         <input type="text" hidden value="<?php echo $id ?>" name="id">
+                                        <div class="EspacioSup col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 centrado" >
+                                                <label for="validationCustom01">Codigo Unidad de Medida</label>
+                                                <input type="text" class="form-control centrado" id="validationCustom01" placeholder="" value="<?php echo $id ?>" name="" disabled>
+                                               
+                                            </div>
+
+
                                         <div class="EspacioSup col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
                                                 <label for="validationCustom01">Descripcion</label>
                                                 <input type="text" class="form-control" id="validationCustom01" placeholder="" value="<?php echo $ver[0] ?>" name="Descripcion" required minlength="4">

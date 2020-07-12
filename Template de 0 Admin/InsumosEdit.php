@@ -5,8 +5,10 @@
     $obj= new conectar();
 	$conexion=$obj->conexion();
 	$id=$_GET['id'];
-	$sql="SELECT Descripcion, DescripcionAbre
-			from UnidadMedida where id=  $id " ;
+	$sql="SELECT i.Descripcion,i.DescripcionAbre,i.Color,u.DescripcionAbre as Uni,i.Cantidad
+    FROM insumos as i inner join unidadmedida AS u on 
+    (i.IdUnidadMedida=u.Id)
+    WHERE i.id=$id" ;
 	$result=mysqli_query($conexion,$sql);
 	$ver=mysqli_fetch_row($result);
  ?>
@@ -91,21 +93,43 @@
                             <div class="card">
                                 <h5 class="card-header">Editar Unidad de Medida: <?php echo $ver[0] ?> </h5>
                                 <div class="card-body">
-                                    <form class="needs-validation" novalidate action="Controller/UnidadMedida/editar.php" method="post" id="Form_Create_UnidMedida">
+                                    <form class="needs-validation" novalidate action="Controller/Insumos/editar.php" method="post" id="Form_Create_UnidMedida">
                                         <div class="row">
                                         <input type="text" hidden value="<?php echo $id ?>" name="id">
+                                        <div class="EspacioSup col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 centrado" >
+                                                <label for="validationCustom01">Codigo Insumo</label>
+                                                <input type="text" class="form-control centrado" id="validationCustom01" placeholder="" value="<?php echo $id ?>" name="" disabled>
+                                               
+                                            </div>
                                         <div class="EspacioSup col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
                                                 <label for="validationCustom01">Descripcion</label>
-                                                <input type="text" class="form-control" id="validationCustom01" placeholder="" value="<?php echo $ver[0] ?>" name="Descripcion" required minlength="4">
+                                                <input type="text" class="form-control" id="validationCustom01" placeholder="" value="<?php echo $ver[0] ?>" name="Descripcion" required >
                                                
                                             </div>
                                             <div class="EspacioSup col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
                                                 <label for="validationCustom01">Descripcion Abreviada</label>
-                                                <input type="text" class="form-control" id="validationCustom01" placeholder="" value="<?php echo $ver[1] ?>" name="DescripcionAbre" required>
+                                                <input type="text" class="form-control" id="validationCustom01" placeholder="" value="<?php echo $ver[1] ?>" name="DescripcionAbre" required maxlength="10">
                                                 
                                             </div>
-                                            
-                                            
+                                            <div class="EspacioSup col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
+                                                <label for="validationCustom01">Color</label>
+                                                <input type="text" class="form-control" id="validationCustom01" placeholder="" value="<?php echo $ver[2] ?>" name="Color" required>
+                                                
+                                            </div>
+                                            <div class="EspacioSup col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
+                                              
+                                            </div>
+                                            <div class="EspacioSup col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
+                                                <label for="validationCustom01">Cantidad</label>
+                                                <input type="text" class="form-control" id="validationCustom01" placeholder="" value="<?php echo $ver[4] ?>" name="" disabled requireddata-toggle="tooltip" data-placement="top" title="La cantidad es el balance entre las compras y usos del insumo." >
+                                                
+                                            </div>
+                                            <div class="EspacioSup col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 ">
+                                                <label for="validationCustom01">Unidad de Medida</label>
+                                                <input type="text" class="form-control" id="validationCustom01" placeholder="" value="<?php echo $ver[3] ?>" name="" disabled requireddata-toggle="tooltip" data-placement="top" title="La UM no puede editarse. Cree un nuevo producto que contenga la UM que desee.">
+                                                
+                                            </div>
+                                           
                                             <h1> </h1>
                                             <div class="EspacioSup col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                                                 <button class="btn btn-primary" type="submit" >Editar</button>

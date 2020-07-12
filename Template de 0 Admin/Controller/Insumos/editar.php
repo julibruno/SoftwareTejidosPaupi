@@ -15,7 +15,7 @@
         $ColId= 'id',
 		$ColDescripcion = 'Descripcion',
 		$ColDescripcionAbre = 'DescripcionAbre',
-		$Color = 'Color',
+		$ColColor = 'Color',
 		$ColFechaActualizacion= 'FechaActualizacion',
 	);
 
@@ -24,12 +24,13 @@
         $id,
         $Descripcion,
 		$DescripcionAbre,
+		$Color,
         $FechaActualizacion,
 				);
 
 	$obj= new metodos();
 	if($obj->Update($tabla,$columnas,$datos)==1){
-		header("location:../../UnidadMedida.php?OKEdit");
+		header("location:../../Insumos.php?OKEdit");
 		
 		
 	}else{
